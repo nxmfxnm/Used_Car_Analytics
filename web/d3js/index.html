@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Used Car Analytics Dashboard</title>
+
+    <!-- D3.js -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="header-content">
+
+            <h1>
+                Used Car Analytics Dashboard
+            </h1>
+
+            <p>
+                การวิเคราะห์ข้อมูลและปัจจัยที่เกี่ยวข้องกับราคารถยนต์มือสอง
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <main class="container">
+
+
+        <!-- ================= FILTER ================= -->
+
+        <section class="filter-section">
+
+            <div class="filter-title">
+
+                <h2>ตัวกรองข้อมูล</h2>
+
+                <p>
+                    เลือกเงื่อนไขเพื่อดูข้อมูลเฉพาะกลุ่มที่ต้องการ
+                </p>
+
+            </div>
+
+
+            <div class="filter-container">
+
+
+                <!-- Brand -->
+
+                <div class="filter-group">
+
+                    <label for="brandFilter">
+                        ยี่ห้อรถ
+                    </label>
+
+                    <select id="brandFilter">
+
+                        <option value="All">
+                            ทุกยี่ห้อ
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Fuel -->
+
+                <div class="filter-group">
+
+                    <label for="fuelFilter">
+                        ประเภทเชื้อเพลิง
+                    </label>
+
+                    <select id="fuelFilter">
+
+                        <option value="All">
+                            ทุกประเภท
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Accident -->
+
+                <div class="filter-group">
+
+                    <label for="accidentFilter">
+                        ประวัติอุบัติเหตุ
+                    </label>
+
+                    <select id="accidentFilter">
+
+                        <option value="All">
+                            ทุกสถานะ
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Reset -->
+
+                <div class="filter-group button-group">
+
+                    <button id="resetFilter">
+
+                        ล้างตัวกรอง
+
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= KPI ================= -->
+
+        <section class="kpi-section">
+
+
+            <div class="kpi-card">
+
+                <span class="kpi-label">
+                    จำนวนรถยนต์
+                </span>
+
+                <h2 id="totalCars">
+                    0
+                </h2>
+
+                <p>คัน</p>
+
+            </div>
+
+
+            <div class="kpi-card">
+
+                <span class="kpi-label">
+                    ราคาเฉลี่ย
+                </span>
+
+                <h2 id="averagePrice">
+                    $0
+                </h2>
+
+                <p>USD</p>
+
+            </div>
+
+
+            <div class="kpi-card">
+
+                <span class="kpi-label">
+                    ระยะทางเฉลี่ย
+                </span>
+
+                <h2 id="averageMileage">
+                    0
+                </h2>
+
+                <p>ไมล์</p>
+
+            </div>
+
+
+            <div class="kpi-card">
+
+                <span class="kpi-label">
+                    จำนวนยี่ห้อ
+                </span>
+
+                <h2 id="totalBrands">
+                    0
+                </h2>
+
+                <p>ยี่ห้อ</p>
+
+            </div>
+
+
+        </section>
+
+        <!-- ================= CHART 1 ================= -->
+
+        <section class="chart-card">
+
+            <div class="chart-header">
+
+                <div>
+
+                    <h2>
+                        1. ราคาเฉลี่ยจำแนกตามยี่ห้อ
+                    </h2>
+
+                    <p>
+                        เปรียบเทียบราคาเฉลี่ยของรถยนต์แต่ละยี่ห้อ
+                        โดยแสดง 10 ยี่ห้อที่มีราคาเฉลี่ยสูงที่สุด
+                    </p>
+                    <p class="click-hint">
+                        คลิกที่แท่งกราฟเพื่อดูรายละเอียดเพิ่มเติม
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="brandChart"
+                class="chart"
+            ></div>
+
+            <div id="brandDetail" class="chart-detail">
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= CHART GRID ================= -->
+
+        <section class="chart-grid">
+
+
+            <!-- SCATTER -->
+
+            <div class="chart-card">
+
+                <div class="chart-header">
+
+                    <div>
+
+                        <h2>
+                            2. ระยะทางการใช้งานกับราคา
+                        </h2>
+
+                        <p>
+                            วิเคราะห์ความสัมพันธ์ระหว่างระยะทางการใช้งานกับราคา
+                        </p>
+                        <p class="click-hint">
+                            คลิกที่จุดข้อมูลเพื่อดูรายละเอียดเพิ่มเติม
+                        </p>
+                    </div>
+
+                </div>
+
+                <div
+                    id="scatterChart"
+                    class="chart"
+                ></div>
+
+                <div id="scatterDetail" class="chart-detail">
+                </div>
+
+            </div>
+
+
+
+            <!-- DONUT -->
+
+            <div class="chart-card">
+
+                <div class="chart-header">
+
+                    <div>
+
+                        <h2>
+                            3. สัดส่วนประเภทเชื้อเพลิง
+                        </h2>
+
+                        <p>
+                            แสดงสัดส่วนรถยนต์จำแนกตามประเภทเชื้อเพลิง
+                        </p>
+                        <p class="click-hint">
+                            คลิกที่ส่วนของกราฟเพื่อดูรายละเอียดเพิ่มเติม
+                        </p>
+                    </div>
+
+                </div>
+
+                <div
+                    id="fuelChart"
+                    class="chart"
+                ></div>
+
+                <div id="fuelDetail" class="chart-detail">
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= LINE ================= -->
+
+        <section class="chart-card">
+
+            <div class="chart-header">
+
+                <div>
+
+                    <h2>
+                        4. ราคาเฉลี่ยตามปีรถ
+                    </h2>
+
+                    <p>
+                        แสดงแนวโน้มราคาเฉลี่ยของรถยนต์ในแต่ละ Model Year
+                    </p>
+                    <p class="click-hint">
+                        คลิกที่จุดบนเส้นเพื่อดูรายละเอียดเพิ่มเติม
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div
+                id="yearChart"
+                class="chart"
+            ></div>
+
+            <div id="yearDetail" class="chart-detail">
+            </div>
+
+        </section>
+         <!-- ================= Bar Chart ================= -->
+        <section class="chart-card">
+
+            <div class="chart-header">
+
+                <div>
+                    <h2>
+                        5. ราคาเฉลี่ยจำแนกตามประวัติอุบัติเหตุ
+                    </h2>
+
+                    <p>
+                        เปรียบเทียบราคาเฉลี่ยของรถยนต์ตามสถานะประวัติอุบัติเหตุ
+                    </p>
+                    <p class="click-hint">
+                        คลิกที่แท่งกราฟเพื่อดูรายละเอียดเพิ่มเติม
+                    </p>
+                </div>
+
+            </div>
+
+            <div
+                id="accidentChart"
+                class="chart"
+            ></div>
+
+            <div id="accidentDetail" class="chart-detail">
+            
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= INFORMATION ================= -->
+
+        <section class="info-section">
+
+            <h2>
+                เกี่ยวกับข้อมูล
+            </h2>
+
+            <p>
+                ชุดข้อมูล Used Car Price Prediction Dataset
+                ประกอบด้วยข้อมูลยี่ห้อ รุ่น ปีรถ ระยะทาง
+                ประเภทเชื้อเพลิง เครื่องยนต์ ระบบเกียร์
+                สี ประวัติอุบัติเหตุ สถานะ Clean Title
+                และราคาของรถยนต์มือสอง
+            </p>
+
+            <p>
+                Data Source: Kaggle
+            </p>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================= TOOLTIP ================= -->
+
+    <div
+        id="tooltip"
+        class="tooltip"
+    ></div>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            นางสาวน้ำฝน ทุนอ่อง 68541207057-3
+        </p>
+
+    </footer>
+
+
+
+    <!-- JavaScript -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
