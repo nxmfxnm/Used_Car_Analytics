@@ -1,52 +1,50 @@
 # Used Car Analytics Dashboard
 
-Interactive Data Visualization Dashboard สำหรับวิเคราะห์ข้อมูลรถยนต์มือสอง โดยใช้ D3.js ในการสร้างกราฟและนำเสนอข้อมูลแบบโต้ตอบ
+## เกี่ยวกับโครงการ
 
-## Project Overview
+โครงการนี้เป็น Interactive Data Visualization Dashboard สำหรับวิเคราะห์ข้อมูลรถยนต์มือสอง โดยนำข้อมูลจากชุดข้อมูล Used Car Price Prediction Dataset มาผ่านกระบวนการเตรียมและทำความสะอาดข้อมูล ก่อนนำมาสร้างกราฟและเว็บไซต์แบบโต้ตอบด้วย D3.js
 
-โครงการนี้จัดทำขึ้นเพื่อวิเคราะห์ข้อมูลรถยนต์มือสองจากชุดข้อมูล Used Car Price Prediction Dataset โดยนำข้อมูลมาผ่านกระบวนการทำความสะอาดและเตรียมข้อมูลก่อนนำเสนอผ่าน Interactive Dashboard
+Dashboard ช่วยให้ผู้ใช้สามารถสำรวจข้อมูลรถยนต์มือสองในหลายมิติ เช่น ราคา ยี่ห้อ ระยะทางการใช้งาน ประเภทเชื้อเพลิง ปีรถ และประวัติอุบัติเหตุ
 
-## Objectives
+## วัตถุประสงค์
 
-- วิเคราะห์ราคาเฉลี่ยของรถยนต์ตามยี่ห้อ
+- วิเคราะห์ราคาเฉลี่ยของรถยนต์จำแนกตามยี่ห้อ
 - วิเคราะห์ความสัมพันธ์ระหว่าง Mileage และราคา
 - วิเคราะห์สัดส่วนรถยนต์ตามประเภทเชื้อเพลิง
 - วิเคราะห์แนวโน้มราคาเฉลี่ยตาม Model Year
 - เปรียบเทียบราคาเฉลี่ยตามประวัติอุบัติเหตุ
+- นำเสนอผลการวิเคราะห์ผ่าน Interactive Dashboard
 
-## Dataset
+## ชุดข้อมูล
 
-- Dataset: Used Car Price Prediction Dataset
-- Source: Kaggle
-- Publisher: Taeef Najib
-- Records: 4,009
-- Attributes: 12
+ใช้ชุดข้อมูล **Used Car Price Prediction Dataset**
 
-## Visualizations
+- แหล่งข้อมูล: Kaggle
+- ผู้เผยแพร่: Taeef Najib
+- จำนวนข้อมูล: 4,009 แถว
+- จำนวนแอตทริบิวต์: 12 คอลัมน์
 
-1. Bar Chart — Average Price by Brand
-2. Scatter Plot — Mileage vs Price
-3. Donut Chart — Fuel Type Distribution
-4. Line Chart — Average Price by Model Year
-5. Bar Chart — Average Price by Accident
+ตัวแปรสำคัญ ได้แก่ Brand, Model, Model Year, Mileage, Fuel Type, Engine, Transmission, Accident, Clean Title และ Price
 
-## Interactivity
+## การเตรียมข้อมูล
 
-- Brand Filter
-- Fuel Type Filter
-- Accident Filter
-- Tooltip
-- Click / Drilldown
-- Reset Filter
-- Animation
-- Responsive Design
+ก่อนนำข้อมูลไปวิเคราะห์ ได้ดำเนินการทำความสะอาดข้อมูล ดังนี้
 
-## Technologies
+- จัดการค่าที่ขาดหายและค่าผิดรูปแบบ โดยแทนค่าข้อมูลประเภทข้อความด้วย `Unknown`
+- ปรับคอลัมน์ `milage` จากข้อมูลข้อความ เช่น `34,000 mi.` ให้เป็นค่าตัวเลข
+- ปรับคอลัมน์ `price` โดยลบ `$` และ `,` แล้วแปลงเป็นค่าตัวเลข
+- ตรวจสอบข้อมูลซ้ำ พบว่าไม่มีข้อมูลซ้ำ
+- ตรวจสอบ Outlier ด้วยวิธี IQR และคงข้อมูลที่ยังมีความสมเหตุสมผลตามบริบทของรถยนต์ไว้
 
-- HTML
-- CSS
-- JavaScript
-- D3.js
-- Microsoft Excel
-- GitHub
-- GitHub Pages
+## รูปแบบการนำเสนอข้อมูล
+
+Dashboard ประกอบด้วยกราฟทั้งหมด 5 รายการ
+
+1. Bar Chart แสดงราคาเฉลี่ยจำแนกตามยี่ห้อ
+2. Scatter Plot แสดงความสัมพันธ์ระหว่าง Mileage และ Price
+3. Donut Chart แสดงสัดส่วนรถยนต์ตาม Fuel Type
+4. Line Chart แสดงราคาเฉลี่ยตาม Model Year
+5. Bar Chart แสดงราคาเฉลี่ยตามประวัติอุบัติเหตุ
+
+## ผู้จัดทำ
+นางสาวน้ำฝน ทุนอ่อง 68541207057-3
